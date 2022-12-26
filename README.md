@@ -6,6 +6,7 @@ This project the following code:
 
 * [Grader Helper](./code/grader-helper): Class to simplify the assestments of a Matlab Grader problem.
 * [Random Parameters](./code/random-parameters/): Class to generate random problems.
+* [Latex Plot](./code/latex-plot/): Function to show some lines of latex as an image.
 
 Take a look to the examples:
 
