@@ -1,4 +1,4 @@
-# matlab-grader-helper
+# Matlab Grader Helper
 
 Helper code for matlab grader.
 
