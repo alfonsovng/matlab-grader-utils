@@ -25,7 +25,7 @@ grader_helper_solution = GraderHelper.store_solution('f', 'plot_f', 'a', 'b');
 
 ```matlab
 % function
-f = 0;
+f = NaN;
 
 % plot
 figure1 = figure;
