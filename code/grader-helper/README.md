@@ -16,9 +16,6 @@ plot_f = GraderHelper.save_plot(figure1);
 % roots, where a < b
 a = -4;
 b = 2;
-
-% store the solution
-grader_helper_solution = GraderHelper.store_solution('f', 'plot_f', 'a', 'b');
 ```
 
 ## Learner Template:
@@ -35,9 +32,6 @@ plot_f = GraderHelper.save_plot(figure1);
 % roots, where a < b
 a = NaN;
 b = NaN;
-
-% store the solution
-grader_helper_solution = GraderHelper.store_solution('f', 'plot_f', 'a', 'b');
 ```
 
 ## Assessments:

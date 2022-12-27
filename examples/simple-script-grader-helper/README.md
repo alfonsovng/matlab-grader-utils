@@ -6,7 +6,7 @@ Add to the problem the following file:
 
 * [GraderHelper.m](../../code/grader-helper/GraderHelper.m)
 
-Take a look to the screesnshots:
+Take a look to the screenshots:
 
 * [Screenshot of the problem draft](./screenshot_reference.png)
 * [Screenshot of the learner preview](./screenshot_learner.png)

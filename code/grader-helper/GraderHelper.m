@@ -3,8 +3,6 @@ classdef GraderHelper
         SHOW_LOG = false;     
         FUNCTION_NUMBER_POINTS_TO_CHECK = 13;
         FUNCTION_DEFAULT_INTERVAL = [-10 10];
-
-        SOLUTION_FILE_VARIABLE_NAME = 'grader_helper_solution';
     end
 
     methods(Static)
@@ -26,37 +24,13 @@ classdef GraderHelper
             end        
         end
 
-        function file_name = store_solution(varargin)
-            % unique file with .mat extension
-            file_name = [tempname('.') '.mat'];
-
-            GraderHelper.log('Store solution at %s', file_name);
-
-            for n = 1:nargin
-                variable_name = varargin{n};
-                variable_value = evalin('caller', varargin{n});
-                GraderHelper.assignhere(variable_name, variable_value);
-            end
-
-            save(file_name, varargin{:});
-        end
-
         function assert_equal(variable_name, varargin)
             % get the name of the files with the learner and reference solution
             try
-                learner_solution = evalin('caller', GraderHelper.SOLUTION_FILE_VARIABLE_NAME);
-                reference_solution = evalin('caller', sprintf('referenceVariables.%s', GraderHelper.SOLUTION_FILE_VARIABLE_NAME));
+                learner_value = evalin('caller', variable_name);
+                reference_value = evalin('caller', sprintf('referenceVariables.%s', variable_name));
             catch exception
                 GraderHelper.log(getReport(exception));
-
-                error('Files with variable %s not found. Script with syntax errors that could not be executed', variable_name);
-            end
-
-            try
-                learner_value = load(learner_solution, variable_name).(variable_name);
-                reference_value = load(reference_solution, variable_name).(variable_name);
-            catch exception
-                GraderHelper.log(getReport(exception));       
 
                 error('Variable %s not found. Script with syntax errors that could not be executed', variable_name);
             end
