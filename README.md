@@ -10,5 +10,6 @@ This project the following code:
 
 Take a look to the examples:
 
-* [Simple script using Grader Helper](./examples/simple-script-grader-helper/)
-* [Simple script using Random Parameters](./examples/simple-script-random-parameters/)
+* [Simple script using Grader Helper](./examples/simple-script-grader-helper/): A very simple example of a problem in Matlab Grader using `GraderHelper.m` to simplify the code of the assessments.
+
+* [Simple script with personalized value for student](./examples/simple-script-personalized-value/): Small example of how to generate diferent problems, one for each student.

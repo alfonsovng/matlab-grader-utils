@@ -1,5 +1,5 @@
-% define A, number between 1 and 100
-A = NaN;
+% put your STUDENT_ID, a number between 1 and 100
+STUDENT_ID = NaN;
 
 % function
 f = NaN;
