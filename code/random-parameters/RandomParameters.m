@@ -1,4 +1,24 @@
 classdef RandomParameters
+    methods(Static)
+        function str_id = get_str_id_from_learner()
+            learner_solution_file_name = 'solution.m';
+
+            str_id = NaN;
+
+            lines_from_solution = readlines(learner_solution_file_name);
+            pattern = '\s*ID\s*=\s*[\''\"]*(\w+)[\''\"]*';
+
+            for line_number = 1:length(lines_from_solution) 
+                line = lines_from_solution{line_number};
+                data = regexp(line, pattern, 'tokens');
+                if ~isempty(data)
+                    str_id = data{1}{1};
+                    fprintf('FOUND ID TO WORK WITH: |%s|\n', ID);
+                    break;
+                end
+            end
+        end
+    end
     properties
         random_stream;
     end
