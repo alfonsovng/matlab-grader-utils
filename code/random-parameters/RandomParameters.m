@@ -1,21 +1,31 @@
 classdef RandomParameters
     methods(Static)
-        function str_id = get_str_id_from_learner()
+        function str_value = get_str_value_from_learner(param_name)
+            % Matlab Grader stores the learner solution in a file named "solution.m"
             learner_solution_file_name = 'solution.m';
 
-            str_id = NaN;
+            str_value = NaN;
 
             lines_from_solution = readlines(learner_solution_file_name);
-            pattern = '\s*ID\s*=\s*[\''\"]*(\w+)[\''\"]*';
+            % '\s*ID\s*=\s*[\''\"]*(\w+)[\''\"]*';
+            pattern = ['\s*' param_name '\s*=\s*[\''\"]*([^\''\"\;]+)[\''\"\;]'];
 
             for line_number = 1:length(lines_from_solution) 
                 line = lines_from_solution{line_number};
                 data = regexp(line, pattern, 'tokens');
                 if ~isempty(data)
-                    str_id = data{1}{1};
-                    fprintf('FOUND ID TO WORK WITH: |%s|\n', ID);
+                    str_value = data{1}{1};
                     break;
                 end
+            end
+        end
+
+        function number_value = get_number_value_from_learner(param_name)
+            str_value = RandomParameters.get_str_value_from_learner(param_name);
+            if isnan(str_value)
+                number_value = NaN; % not found ;(
+            else
+                number_value = str2double(str_value);
             end
         end
     end

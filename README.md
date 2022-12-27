@@ -11,3 +11,4 @@ This project the following code:
 Take a look to the examples:
 
 * [Simple script using Grader Helper](./examples/simple-script-grader-helper/)
+* [Simple script using Random Parameters](./examples/simple-script-random-parameters/)
