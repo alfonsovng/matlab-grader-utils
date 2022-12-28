@@ -10,7 +10,7 @@ The scenario is that we have a group of 100 students, each one with and id betwe
 
 Create a new script problem in your Matlab Grader.
 
-Add to the problem the following file:
+Add to the problem the following files:
 
 * [GraderHelper.m](../../code/grader-helper/GraderHelper.m)
 * [RandomParameters.m](../../code/random-parameters/RandomParameters.m)
@@ -21,7 +21,7 @@ Take a look to the screenshots:
 * [Screenshot of the learner preview](./screenshot_learner.png)
 * [Screenshot of the learner submitted](./screenshot_learner_submitted.png)
 
-The code is here:
+The code of the screenshots is here:
 
 * [Reference solution](./reference.m)
 * [Learner template](./learner.m)
