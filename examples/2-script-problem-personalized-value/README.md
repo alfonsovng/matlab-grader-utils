@@ -1,4 +1,4 @@
-# Simple script with personalized value for student
+# Script problem with personalized value for student
 
 ## Description
 

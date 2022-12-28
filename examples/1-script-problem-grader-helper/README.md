@@ -1,4 +1,4 @@
-# Simple script using Grader Helper
+# Script problem using Grader Helper
 
 ## Description
 
