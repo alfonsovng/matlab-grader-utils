@@ -2,7 +2,7 @@ classdef LatexPlot
     properties (Constant, Access = private)
         DEFAULT_FONT_COLOR = 'k'; % black
         DEFAULT_BACKGROUND_COLOR = '#FFFFE0'; % yellow
-        DEFAULT_FONT_SIZE = 15;
+        DEFAULT_FONT_SIZE = 14;
     end
     methods(Static)
         % max 8 lines
