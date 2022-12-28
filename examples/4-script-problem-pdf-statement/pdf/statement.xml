@@ -1,0 +1,9 @@
+<statement>
+<p>NAME:</p>
+<p>id = <var>id</var>.</p>
+<p>Define, using an inline function:</p>
+<p class="latex"><var>latex_f</var></p>
+<p>Represent the function at the interval [-1, 16] using a continous line of color <var>color_name</var> and witdh <var>line_width</var>.</p>
+<p>Calculate</p>
+<p class="latex">I= \int_{0}^{<var>n</var>} f(x) dx</p>
+</statement>
