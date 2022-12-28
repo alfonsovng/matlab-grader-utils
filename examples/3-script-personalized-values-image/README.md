@@ -21,11 +21,11 @@ Add to the problem the following files:
 
 Take a look to the screenshots:
 
-* [Screenshot of the reference solution](./screenshot_reference.png)
-* [Screenshot of the reference solution validated](./screenshot_reference_validated.png)
-* [Screenshot of the learner preview](./screenshot_learner.png)
-* [Screenshot of the learner first sumit to view the problem](./screenshot_learner_with_email.png)
-* [Screenshot of the learner submitted](./screenshot_learner_submitted.png)
+* [Screenshot of the reference solution](./screenshots/screenshot_reference.png)
+* [Screenshot of the reference solution validated](./screenshots/screenshot_reference_validated.png)
+* [Screenshot of the learner preview](./screenshots/screenshot_learner.png)
+* [Screenshot of the learner first sumit to view the problem](./screenshots/screenshot_learner_with_email.png)
+* [Screenshot of the learner submitted](./screenshots/screenshot_learner_submitted.png)
 
 The code of the screenshots is here:
 
