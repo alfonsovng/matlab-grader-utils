@@ -17,7 +17,7 @@ Add to the problem the following files:
 
 Take a look to the screenshots:
 
-* [Screenshot of the problem draft](./screenshot_reference.png)
+* [Screenshot of the reference solution](./screenshot_reference.png)
 * [Screenshot of the learner preview](./screenshot_learner.png)
 * [Screenshot of the learner submitted](./screenshot_learner_submitted.png)
 

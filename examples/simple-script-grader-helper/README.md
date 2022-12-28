@@ -14,7 +14,7 @@ Add to the problem the following file:
 
 Take a look to the screenshots:
 
-* [Screenshot of the problem draft](./screenshot_reference.png)
+* [Screenshot of the reference solution](./screenshot_reference.png)
 * [Screenshot of the learner preview](./screenshot_learner.png)
 
 The code of the screenshots is here:
