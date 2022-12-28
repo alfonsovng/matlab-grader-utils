@@ -7,6 +7,7 @@ This project has the following utilities:
 * [Grader Helper](./code/grader-helper): Class to simplify the assestments of a Matlab Grader problem.
 * [Random Parameters](./code/random-parameters/): Class to generate random problems and also to get values from the learner solution.
 * [Latex Plot](./code/latex-plot/): Function to show some lines of latex as an image.
+* [PDF Statement](./code/pdf-statement/): Function to generate personalized statements of problems in PDF.
 
 Take a look to the examples:
 

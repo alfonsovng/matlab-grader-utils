@@ -2,6 +2,7 @@
 <p>This is the statment for the student <var>email</var>.</p>
 <p>Some random text</p>
 <p class="latex"><var>F_LATEX</var></p>
+<p>More random text</p>
 <p class="latex">I= \int_{<var>A</var>}^{<var>B</var>} f(x) dx</p>
-<p>Mor random text</p>
+<p>And more random text</p>
 </statement>
