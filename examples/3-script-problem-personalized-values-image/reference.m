@@ -5,7 +5,7 @@ email = 'some-student@random-school.edu';
 email = RandomParameters.get_str_value_from_learner('email');
 
 % shows and gets the personalized values for this email
-problem = Problem.show_problem(email, 'SuperSecretPassword');
+problem = Problem.show_problem(email, 'Password', 'SuperSecretPassword');
 
 % function
 f = problem.f;

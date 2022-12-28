@@ -5,7 +5,11 @@ classdef Problem
     end
     methods(Static)
         % shows the problem as an image using LatexPlot.m
-        function problem_to_return = show_problem(email, password_to_get_struct)
+        function problem_to_return = show_problem(email, varargin)
+            p = inputParser;
+            addOptional(p,'Password', '');
+            parse(p, varargin{:});
+
             problem = Problem.get_problem(email);
 
             syms x;
@@ -20,7 +24,8 @@ classdef Problem
 
             LatexPlot.show(lines);
 
-            if nargin >= 2 && isequal(password_to_get_struct, Problem.PASSWORD_TO_GET_STRUCT)
+            % only gets this struct in the reference solution
+            if isequal(p.Results.Password, Problem.PASSWORD_TO_GET_STRUCT)
                 problem_to_return = problem;
             else
                 problem_to_return = NaN;
