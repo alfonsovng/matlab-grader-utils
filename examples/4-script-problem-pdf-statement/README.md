@@ -46,3 +46,4 @@ Take a look to the screenshots:
 * [Screenshot of the learner submitting a solutions with errors](./screenshots/screenshot_learner_submitted_before_report_mode.png)
 * [Screenshot of the review of the solution before enabling the Report Mode](./screenshots/screenshot_learner_report_before_report_mode.png)
 * [Screenshot of the review of the solution after enabling the Report Mode and reescoring it](./screenshots/screenshot_learner_report_after_report_mode.png)
+* [Screenshot of the view of student that can see the full report to review the error theirself](./screenshots/screenshot_learner_review_after_report_mode.png)
