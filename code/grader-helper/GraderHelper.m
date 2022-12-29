@@ -77,7 +77,7 @@ classdef GraderHelper
 
         function check_value(obj, learner_value, reference_value, varargin)
             if obj.verbose_mode
-                obj.log('Check %s:\nL:%s\nR:%s\n', obj.variable_name, GraderHelper.to_debug_str(learner_value), GraderHelper.to_debug_str(reference_value)); 
+                obj.log('**** Check %s with varargin %s\n\tL:%s\n\tR:%s', obj.variable_name, strjoin(varargin,','), GraderHelper.to_debug_str(learner_value), GraderHelper.to_debug_str(reference_value)); 
             end
             GraderHelper.assignhere(obj.variable_name, learner_value);
             assessVariableEqual(obj.variable_name, reference_value, varargin{:});
