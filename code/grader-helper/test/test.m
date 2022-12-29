@@ -126,7 +126,6 @@ i = [-10 201];
 check_error('wrong value', 'i');
 
 function check_ok(variable_name, varargin)
-
     % the assert_equal will try to find these vars
     assignhere(variable_name, evalin('caller', variable_name));
     referenceVariables.(variable_name) = evalin('caller', sprintf('referenceVariables.%s', variable_name));
@@ -134,14 +133,13 @@ function check_ok(variable_name, varargin)
     try
         GraderHelper.assert_equal(variable_name, varargin{:});
         fprintf('\n\tassert_equal(%s) is ok\n', variable_name);
-    catch exception
+    catch exception                    
         error_msg = getReport(exception,'basic','hyperlinks','off');
         error('Unexpected error checking %s: %s\n', variable_name, error_msg);
     end
 end
 
 function check_error(why, variable_name, varargin)
-
     % the assert_equal will try to find these vars
     assignhere(variable_name, evalin('caller', variable_name));
     referenceVariables.(variable_name) = evalin('caller', sprintf('referenceVariables.%s', variable_name));
