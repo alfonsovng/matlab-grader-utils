@@ -1,3 +1,4 @@
 % Text file used as a flag.
 % If it is the list of 'Files Referenced', then the GraderHelper outputs logs.
 % This is usefull to review the students solutions.
+% The VERBOSE.MODE file cant be any file. The GraderMode only checks that a file named 'VERBOSE.MODE' exists.
