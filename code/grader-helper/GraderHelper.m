@@ -1,7 +1,10 @@
 classdef GraderHelper
     properties (Constant, Access = private)
-        VERBOSE_MODE_FILE_FLAG = 'VERBOSE.MODE';
-        DEFAULT_VERBOSE_MODE = false;     
+        DEBUG_MODE = true;
+
+        REPORT_MODE_FILE_FLAG = 'REPORT.MODE';
+        DEFAULT_REPORT_MODE = false;     
+        
         FUNCTION_NUMBER_POINTS_TO_CHECK = 13;
         FUNCTION_DEFAULT_INTERVAL = [-10 10];
     end
@@ -18,41 +21,37 @@ classdef GraderHelper
             catch exception
                 fprintf("\n>>>>>>>>>> ERROR >>>>>>>>>>\n");
                 fprintf(getReport(exception,'basic','hyperlinks','off'));
-                if GraderHelper.DEFAULT_VERBOSE_MODE
-                    fprintf(getReport(exception));
-                end
+                GraderHelper.log(getReport(exception));
                 fprintf("\n<<<<<<<<<< ERROR <<<<<<<<<<\n");
                 lines = NaN;
             end        
         end
 
         function assert_equal(variable_name, varargin)
-            % defines the verbose mode
-            verbose_mode = GraderHelper.DEFAULT_VERBOSE_MODE || isfile(GraderHelper.VERBOSE_MODE_FILE_FLAG);
+            % defines the report mode
+            report_mode = GraderHelper.DEFAULT_REPORT_MODE || isfile(GraderHelper.REPORT_MODE_FILE_FLAG);
 
             % get the name of the files with the learner and reference solution
             try
                 learner_value = evalin('caller', variable_name);
                 reference_value = evalin('caller', sprintf('referenceVariables.%s', variable_name));
             catch exception
-                if verbose_mode
-                    fprintf(getReport(exception));
-                end
+                GraderHelper.log(getReport(exception));
 
                 error('Variable %s not found. Script with syntax errors that could not be executed', variable_name);
             end
 
-            gh = GraderHelper(verbose_mode, variable_name);
+            gh = GraderHelper(report_mode, variable_name);
             gh.check(learner_value, reference_value, varargin{:});
         end
     end
     properties
-        verbose_mode;
+        report_mode;
         variable_name;
     end
     methods(Access = private)
-        function obj = GraderHelper(verbose_mode, variable_name)
-            obj.verbose_mode = verbose_mode;
+        function obj = GraderHelper(report_mode, variable_name)
+            obj.report_mode = report_mode;
             obj.variable_name = variable_name;
         end
 
@@ -63,7 +62,7 @@ classdef GraderHelper
             % check that they are the same class
             obj.check_value(class_learner_value, class_reference_value, 'Feedback','Wrong type or not defined yet');
 
-            obj.log('Class of %s: %s', obj.variable_name, class_reference_value);
+            GraderHelper.log('Class of %s: %s', obj.variable_name, class_reference_value);
 
             switch class_reference_value
                 case 'function_handle'
@@ -76,8 +75,13 @@ classdef GraderHelper
         end
 
         function check_value(obj, learner_value, reference_value, varargin)
-            if obj.verbose_mode
-                obj.log('**** Check %s with varargin %s\n\tL:%s\n\tR:%s', obj.variable_name, strjoin(varargin,','), GraderHelper.to_debug_str(learner_value), GraderHelper.to_debug_str(reference_value)); 
+            if obj.report_mode || GraderHelper.DEBUG_MODE
+                extra_feedback = sprintf('REPORT MODE => Check %s with varargin %s\n\tL:%s\n\tR:%s', obj.variable_name, strjoin(string(varargin),','), GraderHelper.to_debug_str(learner_value), GraderHelper.to_debug_str(reference_value));
+                GraderHelper.log(extra_feedback);
+
+                if obj.report_mode
+                    varargin = [varargin, 'Feedback', extra_feedback];
+                end
             end
             GraderHelper.assignhere(obj.variable_name, learner_value);
             assessVariableEqual(obj.variable_name, reference_value, varargin{:});
@@ -100,7 +104,7 @@ classdef GraderHelper
 
             obj.check_value(number_of_lines,length(reference_lines),'Feedback','The chart does not contain the requested number of plots');
 
-            obj.log('Plots %d. Check color, line style, line width and range for each one', number_of_lines);
+            GraderHelper.log('Plots %d. Check color, line style, line width and range for each one', number_of_lines);
 
             for n = 1:number_of_lines
                 % lines from the plot are LIFO
@@ -112,16 +116,16 @@ classdef GraderHelper
                 obj.check_value(learner_lines(n).XRange, reference_lines(n).XRange,'Feedback',[error_msg_prefix 'wrong range']);
             end  
         end
-
-        function log(obj, varargin)
-            if obj.verbose_mode
+    end
+    methods(Static, Access = private)
+        function log(varargin)
+            if GraderHelper.DEBUG_MODE
                 fprintf('LOG - ')
                 fprintf(varargin{:});
                 fprintf('\n');
             end
         end
-    end
-    methods(Static, Access = private)
+
         function str = to_debug_str(anything)
             str = matlab.unittest.diagnostics.ConstraintDiagnostic.getDisplayableString(anything);
         end

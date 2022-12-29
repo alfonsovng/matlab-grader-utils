@@ -36,3 +36,13 @@ The code of the screenshots is here:
 * [Reference solution](./reference.m)
 * [Learner template](./learner.m)
 * [Assessments](./assessments.m)
+
+# Report Mode
+
+To review the solutions of the students, it is useful to enable the report mode. To do it, after all the students submitted the solutions, change the problem to *Draft*, add an empty file named `REPORT.MODE` and turn to *Final* again the problem. Then, when you want to chek a solution (a *Report*), reescore it and you will see a full feedback of each wrong assessment.
+
+Take a look to the screenshots:
+
+* [Screenshot of the learner submitting a solutions with errors](./screenshots/screenshot_learner_submitted_before_report_mode.png)
+* [Screenshot of the review of the solution before enabling the Report Mode](./screenshots/screenshot_learner_report_before_report_mode.png)
+* [Screenshot of the review of the solution after enabling the Report Mode and reescoring it](./screenshots/screenshot_learner_report_after_report_mode.png)

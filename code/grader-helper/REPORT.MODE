@@ -1,0 +1,4 @@
+% Text file used as a flag.
+% If it is the list of 'Files Referenced', then the GraderHelper outputs more verbose information of the error.
+% This is usefull to review the students solutions.
+% The REPORT.MODE file cant be any file. The GraderMode only checks that a file named 'REPORT.MODE' exists.

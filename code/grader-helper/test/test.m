@@ -61,6 +61,11 @@ check_ok('f');
 
 % function error
 % f = @(x) x.^2 + 5*x + 2; 
+f = -5; 
+check_error('wrong class', 'f');
+
+% function error
+% f = @(x) x.^2 + 5*x + 2; 
 f = @(x) x.^2 + 5*x + 3; 
 check_error('wrong definition', 'f');
 
