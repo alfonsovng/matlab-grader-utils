@@ -1,6 +1,6 @@
 classdef GraderHelper
     properties (Constant, Access = private)
-        DEBUG_MODE = true;
+        DEBUG_MODE = false;
 
         REPORT_MODE_FILE_FLAG = 'REPORT.MODE';
         DEFAULT_REPORT_MODE = false;     
