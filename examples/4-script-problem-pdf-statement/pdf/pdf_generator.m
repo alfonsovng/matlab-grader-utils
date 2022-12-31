@@ -8,7 +8,7 @@ number_of_students = 5;
 
 problems = cell(1,number_of_students);
 for id=1:number_of_students
-    problem = Problem.show_problem(id, 'Password', 'SuperSecretPassword', 'HidePlot', true);
+    problem = Problem.show_problem(id, 'ReturnProblem', true, 'HidePlot', true);
     problems{id} = problem;
 end
 

@@ -5,7 +5,7 @@ id = 1;
 id = RandomParameters.get_number_value_from_learner('id');
 
 % shows and gets the personalized values for this email
-problem = Problem.show_problem(id, 'Password', 'SuperSecretPassword');
+problem = Problem.show_problem(id, 'ReturnProblem', true);
 
 % function
 f = problem.f;

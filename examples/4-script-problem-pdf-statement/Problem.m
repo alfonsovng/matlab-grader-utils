@@ -1,13 +1,9 @@
 classdef Problem
-    properties (Constant, Access = private)
-        % password to avoid students get the problem struct
-        PASSWORD_TO_GET_STRUCT = 'SuperSecretPassword';
-    end
     methods(Static)
         % shows the problem as an image using LatexPlot.m
         function problem_to_return = show_problem(id, varargin)
             p = inputParser;
-            addOptional(p,'Password', '');
+            addOptional(p, 'ReturnProblem', false);
             addOptional(p,'HidePlot', false, @islogical);
             parse(p, varargin{:});
 
@@ -26,7 +22,7 @@ classdef Problem
             end
 
             % only gets this struct in the reference solution
-            if isequal(p.Results.Password, Problem.PASSWORD_TO_GET_STRUCT)
+            if p.Results.ReturnProblem
                 problem_to_return = problem;
             else
                 problem_to_return = NaN;
