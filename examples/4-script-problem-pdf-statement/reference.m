@@ -4,7 +4,7 @@ id = 1;
 % id from the learner
 id = RandomParameters.get_number_value_from_learner('id');
 
-% shows and gets the personalized values for this email
+% shows and gets the personalized values for this id
 problem = Problem.show_problem(id, 'ReturnProblem', true);
 
 % function
