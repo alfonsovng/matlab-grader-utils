@@ -7,11 +7,18 @@ addpath(genpath(current_path + "/../MATLABGraderTestPackage"));
 %
 
 % function
-referenceVariables.f = @(x) x.^2 + 5*x + 2; 
-% plot
+referenceVariables.f = @(x) x.^2 + 5*x + 2;
+% vector
+referenceVariables.v = linspace(-10, 10, 567);
+% fplot
 figure1 = figure;
 fplot(referenceVariables.f, [0 10], '-r', 'LineWidth', 3);
-referenceVariables.plot_f = GraderHelper.save_plot(figure1, true); 
+referenceVariables.fplot_f = GraderHelper.save_plot(figure1, true);
+% plot
+figure2 = figure;
+plot(referenceVariables.v, referenceVariables.f(referenceVariables.v), 'k');
+referenceVariables.plot_f = GraderHelper.save_plot(figure2, true);
+
 % text
 referenceVariables.name = 'Alfonso';
 % numbers
@@ -31,9 +38,17 @@ f = @(x) x.^2 + 5*x + 2;
 check_ok('f');
 check_ok('f', 'Interval', [0 5]);
 
+v = linspace(-10, 10, 567);
+check_ok('v');
+
 figure1 = figure;
 fplot(f, [0 10], '-r', 'LineWidth', 3);
-plot_f = GraderHelper.save_plot(figure1, true); 
+fplot_f = GraderHelper.save_plot(figure1, true); 
+check_ok('fplot_f');
+
+figure2 = figure;
+plot(v, f(v), 'k');
+plot_f = GraderHelper.save_plot(figure2, true);
 check_ok('plot_f');
 
 name = 'Alfonso';
@@ -69,40 +84,60 @@ check_error('wrong class', 'f');
 f = @(x) x.^2 + 5*x + 3; 
 check_error('wrong definition', 'f');
 
-% % plot error by points
-% % f = @(x) x.^2 + 5*x + 2; 
-% f = @(x) x.^2 + 5*x + 3; 
-% figure1 = figure;
-% fplot(f, [0 10], '-r', 'LineWidth', 3);
-% plot_f = GraderHelper.save_plot(figure1, true); 
-% check_error('points', 'plot_f');
+% vector error
+% v = linspace(-10, 10, 567);
+v = linspace(-10, 10, 566);
+check_error('wrong definition', 'v');
 
-% plot error by color
+% fplot error by points
+% f = @(x) x.^2 + 5*x + 2; 
+f = @(x) x.^2 + 5*x + 3; 
+figure1 = figure;
+fplot(f, [0 10], '-r', 'LineWidth', 3);
+fplot_f = GraderHelper.save_plot(figure1, true); 
+check_error('function', 'fplot_f');
+
+% fplot error by color
 f = @(x) x.^2 + 5*x + 2; 
 figure1 = figure;
 fplot(f, [0 10], '-b', 'LineWidth', 3);
-plot_f = GraderHelper.save_plot(figure1, true); 
-check_error('color', 'plot_f');
+fplot_f = GraderHelper.save_plot(figure1, true); 
+check_error('color', 'fplot_f');
 
-% plot error by line
+% fplot error by line
 f = @(x) x.^2 + 5*x + 2; 
 figure1 = figure;
 fplot(f, [0 10], '.r', 'LineWidth', 3);
-plot_f = GraderHelper.save_plot(figure1, true); 
-check_error('line style', 'plot_f');
+fplot_f = GraderHelper.save_plot(figure1, true); 
+check_error('line style', 'fplot_f');
 
-% plot error by range
+% fplot error by range
 f = @(x) x.^2 + 5*x + 2; 
 figure1 = figure;
 fplot(f, [0 11], '-r', 'LineWidth', 3);
-plot_f = GraderHelper.save_plot(figure1, true); 
-check_error('range', 'plot_f');
+fplot_f = GraderHelper.save_plot(figure1, true); 
+check_error('range', 'fplot_f');
 
-% plot error by line width
+% fplot error by line width
 f = @(x) x.^2 + 5*x + 2; 
 figure1 = figure;
 fplot(f, [0 10], '-r', 'LineWidth', 2);
-check_error('line width', 'plot_f');
+fplot_f = GraderHelper.save_plot(figure1, true); 
+check_error('line width', 'fplot_f');
+
+% plot error by xdata
+figure2 = figure;
+v = linspace(-11, 9, 567);
+plot(v, f(v), 'k');
+plot_f = GraderHelper.save_plot(figure2, true);
+check_error('xdata', 'plot_f');
+
+% plot error by color
+figure2 = figure;
+v = linspace(-10, 10, 567);
+plot(v, f(v), 'r');
+plot_f = GraderHelper.save_plot(figure2, true);
+check_error('color', 'plot_f');
 
 % text error
 % name = 'Alfonso';

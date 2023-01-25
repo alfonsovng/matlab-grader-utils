@@ -14,7 +14,11 @@ classdef GraderHelper
                 close_it = false;
             end
             try
-                lines = copy(findobj(figure.CurrentAxes,'Type','FunctionLine'));
+                lines = copy(findobj(figure.CurrentAxes,'Type','Line'));
+                if isequal(class(lines),'matlab.graphics.GraphicsPlaceholder')
+                    % maybe if it is a fplot instead of a plot
+                    lines = copy(findobj(figure.CurrentAxes,'Type','FunctionLine'));
+                end
                 if close_it
                     close(figure);
                 end
@@ -67,8 +71,10 @@ classdef GraderHelper
             switch class_reference_value
                 case 'function_handle'
                     obj.check_functions(learner_value, reference_value, varargin{:});
+                case 'matlab.graphics.chart.primitive.Line'
+                    obj.check_lines(learner_value, reference_value, varargin{:});
                 case 'matlab.graphics.function.FunctionLine'
-                    obj.check_graphics(learner_value, reference_value, varargin{:});
+                    obj.check_function_lines(learner_value, reference_value, varargin{:});
                 otherwise % numbers or strings... generic check
                     obj.check_value(learner_value, reference_value, varargin{:});
             end
@@ -90,30 +96,53 @@ classdef GraderHelper
         function check_functions(obj, learner_function, reference_function, varargin)
             p = inputParser;
             addOptional(p,'Interval', GraderHelper.FUNCTION_DEFAULT_INTERVAL);
+            addOptional(p,'Feedback', 'The function is not rigth');
             parse(p, varargin{:});
 
             a = p.Results.Interval(1);
             b = p.Results.Interval(2);
             x = linspace(a,b,GraderHelper.FUNCTION_NUMBER_POINTS_TO_CHECK);
 
-            obj.check_value(learner_function(x), reference_function(x),'Feedback','The function is not rigth');
+            obj.check_value(learner_function(x), reference_function(x),'Feedback',p.Results.Feedback);
         end
 
-        function check_graphics(obj, learner_lines, reference_lines, varargin)
+        function check_lines(obj, learner_lines, reference_lines, varargin)
             number_of_lines = length(learner_lines);
 
-            obj.check_value(number_of_lines,length(reference_lines),'Feedback','The chart does not contain the requested number of plots');
+            obj.check_value(number_of_lines,length(reference_lines),'Feedback','The chart does not contain the requested number of lines');
 
-            GraderHelper.log('Plots %d. Check color, line style, line width and range for each one', number_of_lines);
+            GraderHelper.log('Lines %d. Check color, line style, line width and range for each one', number_of_lines);
 
             for n = 1:number_of_lines
                 % lines from the plot are LIFO
-                error_msg_prefix = sprintf('[plot %s] ', string(number_of_lines + 1 - n)); 
+                error_msg_prefix = sprintf('[line %s] ', string(number_of_lines + 1 - n)); 
+                
+                obj.check_value(learner_lines(n).Color, reference_lines(n).Color,'Feedback',[error_msg_prefix 'wrong color']);
+                obj.check_value(learner_lines(n).LineStyle, reference_lines(n).LineStyle,'Feedback',[error_msg_prefix 'wrong line style']);
+                obj.check_value(learner_lines(n).LineWidth, reference_lines(n).LineWidth,'Feedback',[error_msg_prefix 'wrong line width']);
+                obj.check_value(learner_lines(n).XData, reference_lines(n).XData,'Feedback',[error_msg_prefix 'wrong x data']);
+                obj.check_value(learner_lines(n).YData, reference_lines(n).YData,'Feedback',[error_msg_prefix 'wrong y data']);
+            end  
+        end
+
+        function check_function_lines(obj, learner_lines, reference_lines, varargin)
+            number_of_lines = length(learner_lines);
+
+            obj.check_value(number_of_lines,length(reference_lines),'Feedback','The chart does not contain the requested number of lines');
+
+            GraderHelper.log('Lines %d. Check color, line style, line width and range for each one', number_of_lines);
+
+            for n = 1:number_of_lines
+                % lines from the plot are LIFO
+                error_msg_prefix = sprintf('[line %s] ', string(number_of_lines + 1 - n)); 
                 
                 obj.check_value(learner_lines(n).Color, reference_lines(n).Color,'Feedback',[error_msg_prefix 'wrong color']);
                 obj.check_value(learner_lines(n).LineStyle, reference_lines(n).LineStyle,'Feedback',[error_msg_prefix 'wrong line style']);
                 obj.check_value(learner_lines(n).LineWidth, reference_lines(n).LineWidth,'Feedback',[error_msg_prefix 'wrong line width']);
                 obj.check_value(learner_lines(n).XRange, reference_lines(n).XRange,'Feedback',[error_msg_prefix 'wrong range']);
+
+                % check also the function
+                obj.check_functions(learner_lines(n).Function, reference_lines(n).Function,'Interval',learner_lines(n).XRange,'Feedback',[error_msg_prefix 'wrong function'])
             end  
         end
     end
