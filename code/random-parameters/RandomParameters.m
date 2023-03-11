@@ -4,7 +4,7 @@ classdef RandomParameters
             % Matlab Grader stores the learner solution in a file named "solution.m"
             learner_solution_file_name = 'solution.m';
 
-            str_value = NaN;
+            str_value = "";
 
             lines_from_solution = readlines(learner_solution_file_name);
             % '\s*ID\s*=\s*[\''\"]*(\w+)[\''\"]*';
@@ -14,7 +14,8 @@ classdef RandomParameters
                 line = lines_from_solution{line_number};
                 data = regexp(line, pattern, 'tokens');
                 if ~isempty(data)
-                    str_value = data{1}{1};
+                    % convert from char array to string
+                    str_value = string(data{1}{1});
                     break;
                 end
             end
@@ -22,11 +23,8 @@ classdef RandomParameters
 
         function number_value = get_number_value_from_learner(param_name)
             str_value = RandomParameters.get_str_value_from_learner(param_name);
-            if isnan(str_value)
-                number_value = NaN; % not found ;(
-            else
-                number_value = str2double(str_value);
-            end
+            % str2double returns NaN if it isn't possible to convert the str
+            number_value = str2double(str_value);
         end
     end
     properties
@@ -58,7 +56,7 @@ classdef RandomParameters
     end
     methods(Static, Access = private)
         % https://es.mathworks.com/matlabcentral/fileexchange/49518-crc-32-computation-algorithm
-        function crc = crc32(data)
+        function crc = crc32(char_array)
             %crc32   Computes the CRC-32 checksum value of a byte vector.
             %--------------------------------------------------------------------------
             %   CRC = crc32(DATA) computes the CRC-32 checksum value of the data stored
@@ -72,28 +70,34 @@ classdef RandomParameters
             % Initialize variables
             crc  = uint32(hex2dec('FFFFFFFF'));
             poly = uint32(hex2dec('EDB88320'));
-            data = uint8(data);
+            data = uint8(char_array);
             % Compute CRC-32 value
             for i = 1:length(data)
                 crc = bitxor(crc,uint32(data(i)));
                 for j = 1:8
                     mask = bitcmp(bitand(crc,uint32(1)));
-                    if mask == intmax('uint32'), mask = 0; else mask = mask+1; end
+                    if mask == intmax('uint32')
+                        mask = 0;
+                    else 
+                        mask = mask+1;
+                    end
                     crc = bitxor(bitshift(crc,-1),bitand(poly,mask));
                 end
             end
         end
-
-        % https://es.mathworks.com/help/matlab/ref/matlab.unittest.diagnostics.constraintdiagnostic.getdisplayablestring.html
-        function str = to_debug_str(anything)
-            str = matlab.unittest.diagnostics.ConstraintDiagnostic.getDisplayableString(anything);
+        
+        function char_array = to_char_array(anything)
+            % https://es.mathworks.com/help/rptgen/ug/mlreportgen.utils.tostring.html
+            str = mlreportgen.utils.toString(anything);
+            char_array = char(str);
         end
 
         % takes any type of parameters and returns an uint32 integer
         function n = to_uint32(id, salt)
-            id_str = RandomParameters.to_debug_str(id);
-            salt_str = RandomParameters.to_debug_str(salt);
-            n = RandomParameters.crc32([id_str RandomParameters.PEPPER salt_str]);
+            id_char_array = RandomParameters.to_char_array(id);
+            salt_char_array = RandomParameters.to_char_array(salt);
+            % with a char array of the id + pepper + salt, an uint32 number is created
+            n = RandomParameters.crc32([id_char_array RandomParameters.PEPPER salt_char_array]);
         end
     end
 end

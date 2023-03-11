@@ -1,11 +1,13 @@
 current_path = pwd;
 addpath(genpath(current_path + "/.."));
 
-id = 'name@mail.from.student';
+% str are converted to char array internally
+id_str = "name@mail.from.student";
+id_char = 'name@mail.from.student';
 salt = 49112;
 
-p1 = RandomParameters(id, salt);
-p2 = RandomParameters(id, salt);
+p1 = RandomParameters(id_str, salt);
+p2 = RandomParameters(id_char, salt);
 
 % get_double_between
 v1 = p1.get_double_between(0, 200, 3);
@@ -44,14 +46,20 @@ learner_value = RandomParameters.get_number_value_from_learner('negative_number'
 fprintf('%g == %g?\n', expected_value, learner_value);
 assert(isequal(learner_value, expected_value), 'get_number_value_from_learner with negative_number failed');
 
-% read a number from the learner solution
-expected_value = 'Hola!';
+% read a string from the learner solution
+expected_value = "Hola!";
 learner_value = RandomParameters.get_str_value_from_learner('text_value');
 fprintf('%s == %s?\n', expected_value, learner_value);
 assert(isequal(learner_value, expected_value), 'get_str_value_from_learner with text_value failed');
 
-% read a number from the learner solution
-expected_value = 'Hello my dear friend ';
+% read a string from the learner solution
+expected_value = "Hello my dear friend ";
 learner_value = RandomParameters.get_str_value_from_learner('another_text_value');
 fprintf('%s == %s?\n', expected_value, learner_value);
 assert(isequal(learner_value, expected_value), 'get_str_value_from_learner with another_text_value failed');
+
+% read a string from the learner solution
+expected_value = "char_array are read as a string";
+learner_value = RandomParameters.get_str_value_from_learner('char_array');
+fprintf('%s == %s?\n', expected_value, learner_value);
+assert(isequal(learner_value, expected_value), 'get_str_value_from_learner with char_array failed');
